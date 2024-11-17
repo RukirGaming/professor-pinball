@@ -98,6 +98,9 @@ var multiball_victory
 var bumper_victory
 var high_score
 var ticks
+var ball_save_used
+# because of my inabalitily to figure out how to do an if statement if a var is false-
+# the var REALLY should be named ball_saved_not_used, but I'm not fixing that.
 
 func _ready():
 	#Engine.set_time_scale(0.5) Uncomment this to slow the game down
@@ -249,6 +252,7 @@ func new_game():
 	target_hunter_victory = false
 	multiball_victory = false
 	bumper_victory = false
+	ball_save_used = true
 	
 	# Set up the table.
 	$Toy.start()
@@ -360,7 +364,6 @@ func new_ball(eject = false):
 			save_next_ball = false
 			save_lit = true
 			$SaveLight.switch_on()
-			$BallSaveTimer.start()
 	# Put the ball on the table.
 	var new_ball = ball_scene.instance()
 	new_ball.set_global_position(BALL_ENTRY)
@@ -729,6 +732,8 @@ func _on_Exit_body_entered(body):
 		$BallEjectTimer.start()
 		$DMD.show_once($DMD.DISPLAY_BALL_SAVED)
 		$AudioStreamPlayer.play_save()
+		ball_save_used = false
+		print("ball drain- saved")
 	elif mode == MODE_WIZARD:
 		# If we're in wizard mode, eject a replacement ball.
 		$SaveLight.flash_on()
@@ -771,6 +776,7 @@ func _on_Exit_body_entered(body):
 			mode = MODE_BALL_OUT
 			$AudioStreamPlayer.play_drain()
 			$BallLostTimer.start(OUT_TIME)
+			print ("ball drain- new ball")
 
 # These effects run when the ball enters the capture lane.
 func _on_BallCaptureRight_rollover_entered(body):
@@ -1035,6 +1041,7 @@ func _on_WizardModeTimer_timeout():
 func _on_BallSaveTimer_timeout():
 	save_lit = false
 	$SaveLight.flash_off()
+	print("BallSaveTimer ended")
 
 # Advance the game-over logic when this timer expires.
 func _on_GameOverTimer_timeout():
@@ -1086,19 +1093,37 @@ func _on_ToyRollover3_rollover_entered(body):
 	$Toy.raise_gate(3)
 	check_multiball()
 
-# The following four functions react to the ball leaving the plunger lane,
-# passing through the skill shot gates.
+# The following five functions react to the ball leaving the plunger lane,
+# passing through the skill shot gates/ entering skill shot area.
 func _on_SkillRollover1_rollover_entered(body):
 	check_skill_gate(1)
+	if ball_save_used :
+		$BallSaveTimer.start()
+		print("BallSaveTimer started~")
+
 
 func _on_SkillRollover2_rollover_entered(body):
 	check_skill_gate(2)
+	if ball_save_used :
+		$BallSaveTimer.start()
+		print("BallSaveTimer started~")
 
 func _on_SkillRollover3_rollover_entered(body):
 	check_skill_gate(3)
+	if ball_save_used :
+		$BallSaveTimer.start()
+		print("BallSaveTimer started~")
 
 func _on_NoSkillRollover_rollover_entered(body):
 	clear_skill_gates()
+	if ball_save_used :
+		$BallSaveTimer.start()
+		print("BallSaveTimer started~")
+	
+# implement a pointer function to start the ball save timer
+# i have no clue where it is, gon go fishing, prob tag it inplace with func rolloverinplay
+# third line so I know where to come back to kek
+# hopefully this change auctually works
 
 # Turn off skill shot lights when this timer expires.
 func _on_SkillShotTimer_timeout():
