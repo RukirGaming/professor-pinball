@@ -57,7 +57,8 @@ pause_mode = 2
 script = ExtResource( 1 )
 
 [node name="Backglass" type="Sprite" parent="."]
-position = Vector2( 1987.7, 926.393 )
+visible = false
+position = Vector2( 2865.7, 938.393 )
 scale = Vector2( 1.9107, 1.9107 )
 texture = ExtResource( 41 )
 
@@ -78,7 +79,7 @@ polygon = PoolVector2Array( 319.037, 475.981, 358.188, 463.081, 394.207, 456.559
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls"]
 position = Vector2( 51.637, 53.8564 )
-polygon = PoolVector2Array( 247.856, 1989.13, 247.258, 1852.62, 19.9753, 1669.52, 17.9857, 1327.66, 90.5789, 1107.09, 17.7013, 785.72, 2.57887, 685.09, 0.242749, 630.688, 5.82948, 590.882, 16.5789, 544.09, 46.8822, 485.049, 81.4201, 439.102, 147.762, 372.76, 149.857, 346.922, 157.539, 317.591, 177.791, 291.054, 202.931, 267.311, 237.848, 248.456, 282.542, 230.997, 326.537, 218.427, 369.834, 212.142, 411.036, 207.254, 459.221, 205.857, 506.708, 208.65, 552.799, 212.841, 603.778, 222.617, 663.136, 242.171, 712.718, 263.819, 761.602, 295.244, 804.899, 341.335, 831.436, 391.615, 849.541, 446.283, 845.659, 1992.33, 882.995, 1992.99, 881.851, 202.339, -12.718, 202.339, -12.8758, 1991.94 )
+polygon = PoolVector2Array( 219.363, 1887.14, 247.258, 1852.62, 19.9753, 1669.52, 19.363, 1427.14, 14.363, 1424.14, 9.363, 1423.14, -1.637, 1423.14, -6.637, 1424.14, -11.637, 1427.14, -12.8758, 1709.14 )
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Walls"]
 position = Vector2( 85.1109, 29.946 )
@@ -106,11 +107,16 @@ position = Vector2( 38.2159, 29.946 )
 polygon = PoolVector2Array( 656.756, 318.586, 680.814, 328.704, 665.525, 368.05, 643.041, 357.033 )
 
 [node name="Sprite" type="Sprite" parent="Walls"]
+visible = false
 position = Vector2( 486.216, 1149.95 )
 texture = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+
+[node name="CollisionPolygon2D10" type="CollisionPolygon2D" parent="Walls"]
+position = Vector2( 52, 54 )
+polygon = PoolVector2Array( 272, 1991, -58, 1767, -69, 1557, -64, 1406, -47, 1379, -20, 1367, 28, 1335, 85.6934, 1124.88, 88, 1100, 83.0087, 1073.71, 17.7013, 785.72, 2.57887, 685.09, 0.242749, 630.688, 5.82948, 590.882, 16.5789, 544.09, 46.8822, 485.049, 81.4201, 439.102, 147.762, 372.76, 149.857, 346.922, 157.539, 317.591, 177.791, 291.054, 202.931, 267.311, 237.848, 248.456, 282.542, 230.997, 326.537, 218.427, 369.834, 212.142, 411.036, 207.254, 459.221, 205.857, 506.708, 208.65, 552.799, 212.841, 603.778, 222.617, 663.136, 242.171, 712.718, 263.819, 761.602, 295.244, 804.899, 341.335, 831.436, 391.615, 849.541, 446.283, 845.659, 1992.33, 882.995, 1992.99, 881.851, 202.339, -127, 202.339, -126, 1984 )
 
 [node name="Bumper1" parent="." instance=ExtResource( 3 )]
 position = Vector2( 427.013, 393.508 )
@@ -150,7 +156,7 @@ snap_time = 0.05
 snap_angle = 47
 
 [node name="Exit" type="Area2D" parent="."]
-position = Vector2( 439.393, 1817.69 )
+position = Vector2( 439.393, 1882 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exit"]
 shape = SubResource( 2 )
@@ -162,15 +168,15 @@ pull_time = 0.75
 release_time = 0.03
 
 [node name="DropTarget1" parent="." instance=ExtResource( 8 )]
-position = Vector2( 95.5873, 1127.85 )
+position = Vector2( 102, 1107.12 )
 rotation = -1.28063
 
 [node name="DropTarget2" parent="." instance=ExtResource( 8 )]
-position = Vector2( 111.228, 1075.05 )
+position = Vector2( 117.641, 1054.32 )
 rotation = -1.28364
 
 [node name="DropTarget3" parent="." instance=ExtResource( 8 )]
-position = Vector2( 126.837, 1022.32 )
+position = Vector2( 133.25, 1001.59 )
 rotation = -1.29007
 
 [node name="DropTarget4" parent="." instance=ExtResource( 8 )]
@@ -371,17 +377,17 @@ rotation = 0.393895
 texture = ExtResource( 21 )
 
 [node name="Multibackglass1" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1987.7, 926.393 )
+position = Vector2( 2865.7, 938.393 )
 scale = Vector2( 1.911, 1.911 )
 texture = ExtResource( 43 )
 
 [node name="Multibackglass2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1987.7, 926.393 )
+position = Vector2( 2865.7, 938.393 )
 scale = Vector2( 1.911, 1.911 )
 texture = ExtResource( 45 )
 
 [node name="Multibackglass3" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1987.7, 926.393 )
+position = Vector2( 2865.7, 938.393 )
 scale = Vector2( 1.911, 1.911 )
 texture = ExtResource( 44 )
 
@@ -391,7 +397,7 @@ rotation = 0.594814
 texture = ExtResource( 22 )
 
 [node name="LeftTargetLight" parent="." instance=ExtResource( 4 )]
-position = Vector2( 137.963, 1082 )
+position = Vector2( 144.376, 1061.27 )
 rotation = -1.31643
 scale = Vector2( 1.01, 1.01 )
 texture = ExtResource( 23 )
@@ -587,7 +593,7 @@ texture = ExtResource( 40 )
 off_light = Color( 1, 1, 1, 0 )
 
 [node name="DMDMoire" type="Sprite" parent="."]
-position = Vector2( 1526, 1414 )
+position = Vector2( 2404, 1426 )
 z_index = 10
 texture = ExtResource( 10 )
 offset = Vector2( 448, 112 )
@@ -596,7 +602,7 @@ region_rect = Rect2( -448, -112, 896, 224 )
 
 [node name="DMD" type="Node2D" parent="."]
 pause_mode = 1
-position = Vector2( 1975, 1526 )
+position = Vector2( 2853, 1538 )
 scale = Vector2( 7, 7 )
 z_index = 5
 script = ExtResource( 11 )
