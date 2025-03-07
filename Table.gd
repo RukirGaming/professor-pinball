@@ -7,7 +7,7 @@ const HIGH_SCORE_FILE = "user://high_score"
 
 # Screen geometry constants
 const WINDOW_SIZE = Vector2(2860, 1800)
-const BALL_ENTRY = Vector2(875, 1550)
+const BALL_ENTRY = Vector2(855, 1665)
 const BALL_EJECT = Vector2(0, -2000)
 
 # Force and other values for bumpers, kickers, nudging
@@ -68,7 +68,6 @@ enum {
 	MODE_BALL_OUT,
 	MODE_BONUS}
 
-var rng = RandomNumberGenerator.new()
 var ball_scene = preload("res://Ball.tscn")
 var impact_scene = preload("res://Impact.tscn")
 var zap_scene = preload("res://Zap.tscn")
@@ -99,9 +98,12 @@ var high_score
 var ticks
 var ball_save_used
 var ball_save_timextension
+var game_over = true
 # because of my inabalitily to figure out how to do an if statement if a var is false-
 # the var REALLY should be named ball_saved_not_used and ball_save_timextension_not_used, but I'm not fixing that.
 var save_ball
+var currentseed = 0b101011
+var length = 8 #bits
 
 func _ready():
 	#Engine.set_time_scale(0.5) Uncomment this to slow the game down
@@ -110,6 +112,7 @@ func _ready():
 	# These lines set us to the correct higher resolution.
 	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_KEEP, WINDOW_SIZE)
 	OS.set_window_fullscreen(true)
+	score = 0
 	
 	# Read the high score file, or set up a new file.
 	var high_score_file = File.new()
@@ -124,13 +127,21 @@ func _ready():
 	$DMD.set_parameter("high_score", high_score)
 	
 	# Start up all other table systems.
-	rng.randomize()
 	$Toy.lower_all_gates()
 	$AudioStreamPlayer.play_startup()
 	attract(true)
 
 func _process(delta):
-	randomize()
+	# LSFR function- 8 bit LSFR that gets shifted every frame
+	var bit1 = (currentseed >> 1)&1
+	var bit5 = (currentseed >> 5)&1
+
+	# Compute the feedback bit using XOR
+	var feedback = bit1 ^ bit5
+
+	# Shift the register to the right
+	currentseed = (currentseed >> 1) | (feedback << (length - 1)) # Add feedback to the leftmost bit
+	
 	# Handle input from player.
 	if Input.is_action_just_pressed("ui_start"):
 		if get_tree().paused:
@@ -256,6 +267,7 @@ func new_game():
 	target_hunter_victory = false
 	multiball_victory = false
 	bumper_victory = false
+	game_over = false
 	$DMD.DMDRESET()
 	
 	# Set up the table.
@@ -281,42 +293,43 @@ func impact(ball, color):
 # Common logic for hitting a bumper.
 func bump(ball, bumper, force):
 	impact(ball, BUMPER_IMPACT_COLOR)
-	
-	# Apply velocity due to impact from bumper.
-	var from_bumper = ball.get_position() - bumper.get_position()
-	ball.apply_central_impulse(from_bumper.normalized() * force)
-	
-	# Apply score and rules due to bumper hit.
-	add_score(SCORE_BUMPER)
-	bumps += 1
-	if bumps >= BUMPER_GOAL:
-		if bumper_victory == false:
-			bumper_victory = true
-			$AudioStreamPlayer.play_award()
-			$DMD.set_parameter("reward", SCORE_ALL_BUMPERS)
-			$DMD.show_once($DMD.DISPLAY_BUMPER_REWARD)
-			$BumperVictoryLight.flash_on()
-			check_wizard_mode()
-	elif bumps % BUMPER_PROGRESS == 0:
-		$DMD.set_parameter("progress", BUMPER_GOAL - bumps)
-		$DMD.show_once($DMD.DISPLAY_BUMPER_PROGRESS)
+	if !game_over :
+		# Apply velocity due to impact from bumper.
+		var from_bumper = ball.get_position() - bumper.get_position()
+		ball.apply_central_impulse(from_bumper.normalized() * force)
+		
+		# Apply score and rules due to bumper hit.
+		add_score(SCORE_BUMPER)
+		bumps += 1
+		if bumps >= BUMPER_GOAL:
+			if bumper_victory == false:
+				bumper_victory = true
+				$AudioStreamPlayer.play_award()
+				$DMD.set_parameter("reward", SCORE_ALL_BUMPERS)
+				$DMD.show_once($DMD.DISPLAY_BUMPER_REWARD)
+				$BumperVictoryLight.flash_on()
+				check_wizard_mode()
+		elif bumps % BUMPER_PROGRESS == 0:
+			$DMD.set_parameter("progress", BUMPER_GOAL - bumps)
+			$DMD.show_once($DMD.DISPLAY_BUMPER_PROGRESS)
 
 # Common logic for hitting a kicker.
 func kick(ball, kicker, force):
-	add_score(SCORE_KICKER)
-	impact(ball, KICKER_IMPACT_COLOR)
+	if !game_over :
+		add_score(SCORE_KICKER)
+		impact(ball, KICKER_IMPACT_COLOR)
 
-	"""
-	# Find offset from ball to kicker origin.
-	var offset = ball.get_position() - kicker.get_position()
-	# Rotate around kicker origin based on kicker orientation.
-	var rotated_offset = offset.rotated(0 - kicker.get_global_rotation())
-	# Determine whether ball is on the "kick" side.
-	if rotated_offset.x > 0:
-		# If so, apply impulse.
+		"""
+		# Find offset from ball to kicker origin.
+		var offset = ball.get_position() - kicker.get_position()
+		# Rotate around kicker origin based on kicker orientation.
+		var rotated_offset = offset.rotated(0 - kicker.get_global_rotation())
+		# Determine whether ball is on the "kick" side.
+		if rotated_offset.x > 0:
+			# If so, apply impulse.
+			ball.apply_central_impulse(Vector2.RIGHT.rotated(kicker.get_global_rotation()) * force)
+		"""
 		ball.apply_central_impulse(Vector2.RIGHT.rotated(kicker.get_global_rotation()) * force)
-	"""
-	ball.apply_central_impulse(Vector2.RIGHT.rotated(kicker.get_global_rotation()) * force)
 
 # Nudge the table up.
 func nudge_up(first_impulse = true):
@@ -391,7 +404,7 @@ func new_ball(eject = false):
 
 # Randomly pick a skill shot gate.
 func choose_skill_gate():
-	skill_gate = rng.randi_range(1, 3)
+	skill_gate = (currentseed % 3) +1
 	match skill_gate:
 		1:
 			$SkillLight1.flash_on()
@@ -428,9 +441,10 @@ func clear_skill_gates():
 
 # Increment score, update DMD, and check if we earned an extra ball.
 func add_score(points):
-	score += points
-	$DMD.set_parameter("score", score)
-	check_extra_ball()
+	if !game_over :
+		score += points
+		$DMD.set_parameter("score", score)
+		check_extra_ball()
 		
 # These effects run when the ball passes through the upper loop.
 func looped():
@@ -510,7 +524,7 @@ func change_lit_lane(score_lane = true):
 		$LaneLight5.switch_off()
 	var new_lit_lane = lit_lane
 	while new_lit_lane == lit_lane:
-		new_lit_lane = rng.randi_range(1, 5)
+		new_lit_lane = (currentseed % 5) +1
 	lit_lane = new_lit_lane
 	if score_lane:
 		# If we're scoring this event, increment the lane counter for the end-of-ball bonus.
@@ -1175,7 +1189,7 @@ func _on_ZapTimer_timeout():
 	var new_zap = zap_scene.instance()
 	new_zap.set_global_position($Toy.get_global_position())
 	call_deferred("add_child", new_zap)
-	$ZapTimer.start(rng.randf_range(0.1, 0.75))
+	$ZapTimer.start((currentseed % 0.75) + 0.1)
 
 func _on_CountdownTimer_timeout():
 	if ticks:
