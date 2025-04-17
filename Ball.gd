@@ -30,10 +30,11 @@ func _integrate_forces(state):
 	place, uncomment this code and set the origin/velocity appropriately. 
 	Then, during play, just hold Q to put the ball where you want it.
 	
+
+	"""
 	if Input.is_key_pressed(KEY_Q):
 		var where = state.get_transform()
-		where.origin = Vector2(450, 950)
+		where.origin = Vector2(750, 1400)
 		state.set_transform(where)
-		state.set_linear_velocity(Vector2(0, -2000))
+		state.set_linear_velocity(Vector2(0, 0))
 	
-	"""
