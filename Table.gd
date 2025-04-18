@@ -6,8 +6,8 @@ extends Node
 const HIGH_SCORE_FILE = "user://high_score"
 
 # Screen geometry constants
-const WINDOW_SIZE = Vector2(2860, 1800)
-const BALL_ENTRY = Vector2(855, 1665)
+const WINDOW_SIZE = Vector2(5000, 3300)
+const BALL_ENTRY = Vector2(1536, 2944)
 const BALL_EJECT = Vector2(0, -2000)
 
 # Force and other values for bumpers, kickers, nudging

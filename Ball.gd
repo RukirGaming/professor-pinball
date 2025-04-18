@@ -7,7 +7,7 @@ const MAX_SOUND_VELOCITY = 1000.0
 const MIN_VOLUME = -40.0
 const MAX_VOLUME = -20.0
 const MIN_TRAIL_VELOCITY = 2000.0
-const CLAMP_VELOCITY = 4500.0
+const CLAMP_VELOCITY = 5500.0
 
 # Turn the particle trail on or off based on ball velocity.
 func _process(delta):

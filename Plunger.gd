@@ -7,7 +7,7 @@ extends Node2D
 # - the time it takes to pull the plunger to its full retraction
 # - the time it takes for the plunger to snap back
 # - the input control that pulls the plunger
-export var full_extension = 50
+export var full_extension = 100
 export var pull_time = 1.0
 export var release_time = 0.05
 export var keycode = "ui_plunger"
