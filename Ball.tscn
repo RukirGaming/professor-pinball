@@ -9,11 +9,9 @@ friction = 0.0
 bounce = 0.1
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 24.0
+radius = 40.0
 
-[node name="Ball" type="RigidBody2D" groups=[
-"balls",
-]]
+[node name="Ball" type="RigidBody2D" groups=["balls"]]
 pause_mode = 1
 collision_layer = 2
 collision_mask = 7
@@ -28,6 +26,7 @@ script = ExtResource( 1 )
 shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 1.75, 1.75 )
 texture = ExtResource( 2 )
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
