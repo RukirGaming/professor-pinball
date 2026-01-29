@@ -96,7 +96,7 @@ polygon = PoolVector2Array( 127.1, 1406.21, 144.045, 1437.57, 140.1, 1451.21, 30
 
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Walls"]
 position = Vector2( -1326, 308 )
-polygon = PoolVector2Array( 1159, 510, 1160, 552, 1158, 2026, 1254, 2026, 1252, 478, 1243, 446, 1227, 421, 1203, 395, 1179, 368, 1165, 356.3, 1182.76, 202.217, 1253, -407, 1260.82, 319.806, 1278, 2044, 515.999, 2043.52, 263.733, 2043.36, -315, 2043, -315, -614.698, -315, -1208, 1270, -1207, 1271, -480, 1272, -349, 1272, 349.3, 1260, 249, 1255, -250, 1253, -407, 1254, -445, 1251, -486, 1234, -588, 1209, -676, 1164, -777, 1127, -840, 1085, -898, 1023, -968, 969, -1015, 892, -1071, 807, -1118, 698, -1159, 579, -1184, 501, -1191, 424, -1190, 335, -1178, 246, -1156, 169, -1127, 86, -1085, -10, -1019, -90, -944, -165, -851, -212, -769, -251, -679, -276, -595, -287, -531, -297, -447, -299, 776, -173, 1009, -297, 1150, -298, 1566, 353, 1912, 353, 2026, 488, 2027, 487, 1912, 1139, 1565, 1139, 1147, 996, 1047, 1138, 779, 1138, 495, 1141, 494, 1146, 495, 1152, 498, 1157, 504 )
+polygon = PoolVector2Array( 1159, 510, 1160, 552, 1158.92, 1348.16, 1158.46, 1690.25, 1158, 2026, 1254, 2026, 1252, 478, 1243, 446, 1227, 421, 1203, 395, 1179, 368, 1165, 356.3, 1171.51, 299.85, 1182.76, 202.217, 1208.76, -23.3296, 1253, -407, 1260.82, 319.806, 1278, 2044, 515.999, 2043.52, 263.733, 2043.36, -315, 2043, -315, -614.698, -315, -1208, 1270, -1207, 1271, -480, 1272, -349, 1272, 349.3, 1260, 249, 1255, -250, 1253, -407, 1254, -445, 1251, -486, 1234, -588, 1209, -676, 1164, -777, 1127, -840, 1085, -898, 1023, -968, 969, -1015, 892, -1071, 807, -1118, 698, -1159, 579, -1184, 501, -1191, 424, -1190, 335, -1178, 246, -1156, 169, -1127, 86, -1085, -10, -1019, -90, -944, -165, -851, -212, -769, -251, -679, -276, -595, -287, -531, -297, -447, -299, 776, -173, 1009, -297, 1150, -298, 1566, 353, 1912, 353, 2026, 488, 2027, 487, 1912, 1139, 1565, 1139, 1353.5, 1139, 1147, 996, 1047, 1138, 779, 1138, 495, 1141, 494, 1146, 495, 1152, 498, 1157, 504 )
 
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="Walls"]
 position = Vector2( -1459, 135.3 )
@@ -107,7 +107,8 @@ position = Vector2( -1068, 62.3 )
 polygon = PoolVector2Array( 777, 1429, 797, 1429, 797, 1748, 440, 1937, 429, 1919, 777, 1736 )
 
 [node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="Walls"]
-polygon = PoolVector2Array( -1152, 909.3, -1107, 938.3, -1371, -384.7, -1409, -376.7 )
+position = Vector2( 0, 1.29999 )
+polygon = PoolVector2Array( -1151, 909, -1107, 938.3, -1371, -386, -1408, -378 )
 
 [node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="Walls"]
 position = Vector2( -145, -22.7 )
@@ -135,9 +136,9 @@ position = Vector2( -0.346008, -0.83197 )
 texture = ExtResource( 5 )
 
 [node name="LFlipper" parent="." instance=ExtResource( 6 )]
-position = Vector2( 530, 2950 )
+position = Vector2( 527, 2949 )
 rotation = 0.471239
-scale = Vector2( 1.2, 1.1 )
+scale = Vector2( 1.2, 1 )
 z_index = 1
 keycode = "ui_left_flip"
 snap_time = 0.05
@@ -145,8 +146,8 @@ snap_angle = -47
 
 [node name="RFlipper" parent="." instance=ExtResource( 6 )]
 position = Vector2( 1034, 2949 )
-rotation = 2.68781
-scale = Vector2( 1.2, 1.1 )
+rotation = -3.63028
+scale = Vector2( 1.2, 1 )
 z_index = 1
 keycode = "ui_right_flip"
 snap_time = 0.05
@@ -190,12 +191,12 @@ position = Vector2( 1372, 2254 )
 rotation = -1.0821
 
 [node name="LKicker" parent="." instance=ExtResource( 9 )]
-position = Vector2( 373, 2594 )
+position = Vector2( 363, 2607 )
 rotation = -0.488692
 scale = Vector2( 1, 1.8 )
 
 [node name="RKicker" parent="." instance=ExtResource( 9 )]
-position = Vector2( 1199, 2589 )
+position = Vector2( 1207, 2597 )
 rotation = 3.63028
 scale = Vector2( 1, 1.8 )
 
@@ -377,17 +378,17 @@ rotation = 0.393895
 texture = ExtResource( 21 )
 
 [node name="Multibackglass1" parent="." instance=ExtResource( 4 )]
-position = Vector2( -1077.3, -958.607 )
+position = Vector2( 2656.7, 1294.39 )
 scale = Vector2( 1.911, 1.911 )
 texture = ExtResource( 43 )
 
 [node name="Multibackglass2" parent="." instance=ExtResource( 4 )]
-position = Vector2( -1077.3, -958.607 )
+position = Vector2( 2656.7, 1294.39 )
 scale = Vector2( 1.911, 1.911 )
 texture = ExtResource( 45 )
 
 [node name="Multibackglass3" parent="." instance=ExtResource( 4 )]
-position = Vector2( -1077.3, -958.607 )
+position = Vector2( 2656.7, 1294.39 )
 scale = Vector2( 1.911, 1.911 )
 texture = ExtResource( 44 )
 
@@ -578,8 +579,8 @@ position = Vector2( 2290.46, -1007.28 )
 rotation = 3.73256
 
 [node name="NoSkillRollover" parent="." instance=ExtResource( 17 )]
-position = Vector2( 1806, -1006 )
-rotation = -3.02082
+position = Vector2( 1524, 1680 )
+rotation = -1.3823
 
 [node name="LoopLight" parent="." instance=ExtResource( 4 )]
 position = Vector2( 1964.37, -1022.15 )
@@ -592,7 +593,7 @@ texture = ExtResource( 40 )
 off_light = Color( 1, 1, 1, 0 )
 
 [node name="DMDMoire" type="Sprite" parent="."]
-position = Vector2( -1539, -471 )
+position = Vector2( 2195, 1782 )
 z_index = 10
 texture = ExtResource( 10 )
 offset = Vector2( 448, 112 )
@@ -601,7 +602,7 @@ region_rect = Rect2( -448, -112, 896, 224 )
 
 [node name="DMD" type="Node2D" parent="."]
 pause_mode = 1
-position = Vector2( -1090, -359 )
+position = Vector2( 2644, 1894 )
 scale = Vector2( 7, 7 )
 z_index = 5
 script = ExtResource( 11 )
